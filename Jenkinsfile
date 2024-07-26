@@ -8,7 +8,7 @@ pipeline {
         DOCKER_HUB_PASSWORD = 'Zamzoom97***.'
     }
     tools {
-            nodejs 'NodeJS 22'
+            nodejs 'NodeJS 14'
         }
 
     stages {
