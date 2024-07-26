@@ -8,7 +8,7 @@ EXPOSE 8080
 WORKDIR /app
 
 # Copiez le fichier jar dans le conteneur
-COPY target/achat-1.0.jar /app/achat-1.0.jar
+COPY target/timesheet-devops-1.0.jar /app/timesheet-devops-1.0.jar
 
 # Exécutez l'application Spring Boot
 ENTRYPOINT ["java", "-jar", "achat-1.0.jar"]
