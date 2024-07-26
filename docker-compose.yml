@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword  # Mot de passe root
       MYSQL_DATABASE: timesheet-devops-db
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
