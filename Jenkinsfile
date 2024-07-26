@@ -7,6 +7,9 @@ pipeline {
         DOCKER_HUB_USER = 'alaabenjaber'
         DOCKER_HUB_PASSWORD = 'Zamzoom97***.'
     }
+    tools {
+            nodejs 'NodeJS 22'
+        }
 
     stages {
         stage('GIT Checkout Backend') {
