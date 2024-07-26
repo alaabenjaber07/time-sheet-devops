@@ -3,7 +3,7 @@ pipeline {
     environment {
         SONARQUBE_LOGIN = 'admin'
         SONARQUBE_PASSWORD = 'sonar'
-        NEXUS_URL = 'http://localhost:8081/repository/maven-releases/'
+        NEXUS_URL = 'http://192.168.50.4:8081/repository/maven-releases/'
         DOCKER_HUB_USER = 'alaabenjaber'
         DOCKER_HUB_PASSWORD = 'Zamzoom97***.'
     }
@@ -34,14 +34,16 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Deploy to Nexus') {
-            steps {
-                script {
-                    def mvnHome = tool 'M2_HOME'
-                    sh "${mvnHome}/bin/mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::${env.NEXUS_URL}"
+         stage('Deploy to Nexus') {
+                    steps {
+                        script {
+                            def mvnHome = tool 'M2_HOME'
+                            timeout(time: 25, unit: 'MINUTES') {
+                                sh "${mvnHome}/bin/mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::${env.NEXUS_URL}"
+                            }
+                        }
+                    }
                 }
-            }
-        }
         stage('Docker Build') {
             steps {
                 script {
