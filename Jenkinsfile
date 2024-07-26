@@ -9,12 +9,19 @@ pipeline {
     }
 
     stages {
-        stage('GIT Checkout') {
+        stage('GIT Checkout Backend') {
             steps {
                 git branch: 'master', url: 'https://github.com/alaabenjaber07/time-sheet-devops.git'
             }
         }
-        stage('Build') {
+         stage('GIT Checkout Frontend') {
+                    steps {
+                        dir('frontend') {
+                            git branch: 'master', url: 'https://github.com/alaabenjaber07/crud-tuto-front.git'
+                        }
+                    }
+                }
+        stage('Build Backend') {
             steps {
                 script {
                     def mvnHome = tool 'M2_HOME'
@@ -22,6 +29,14 @@ pipeline {
                 }
             }
         }
+        stage('Build Frontend') {
+                    steps {
+                        dir('frontend') {
+                            sh 'npm install'
+                            sh 'npm run build --prod'
+                        }
+                    }
+                }
         stage('MVN SONARQUBE') {
             steps {
                 withSonarQubeEnv('SonarQube') { // 'SonarQube' est le nom de l'instance SonarQube configurée dans Jenkins
